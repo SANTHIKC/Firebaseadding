@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1028376902114",
+    "project_id": "fir-animation-675a2",
+    "storage_bucket": "fir-animation-675a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028376902114:android:9c8fd60aef35b94cb1e1bb",
+        "android_client_info": {
+          "package_name": "com.example.firebase_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028376902114-hn9rrbmunhnlarclatkllnmk3e0u7m1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgEkBWgguVZJq8_m0wzGyMJnARUtfYmdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028376902114-hn9rrbmunhnlarclatkllnmk3e0u7m1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
