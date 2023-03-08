@@ -21,7 +21,9 @@ class _CloudstordataState extends State<Cloudstordata> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    readdatas();
+
+      readdatas();
+
   }
 
 

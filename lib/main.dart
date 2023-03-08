@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_login/textdatas.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'animation1.dart';
 import 'cloudfilestoreex.dart';
+import 'cloudstoredata.dart';
 import 'firebaseanimation.dart';
+import 'firebasestoredatas.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,19 +36,21 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context,snapshot){
-          if(snapshot.hasData)
-            {
-              return CloudFirestoreEx();
-            }
-          else{
-            return FirebaseAnimation();
-          }
-        }
-
-      )
+        builder: FToastBuilder(),
+      home:FirebaseStoredatas(),
+      // StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context,snapshot){
+      //     if(snapshot.hasData)
+      //       {
+      //         return CloudFirestoreEx();
+      //       }
+      //     else{
+      //       return Cloudstordata();
+      //     }
+      //   }
+      //
+      // )
     );
   }
 }
