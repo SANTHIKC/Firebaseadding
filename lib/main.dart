@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_login/studentdetails1.dart';
 import 'package:firebase_login/textdatas.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'StudentDetails.dart';
 import 'animation1.dart';
 import 'cloudfilestoreex.dart';
 import 'cloudstoredata.dart';
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
         builder: FToastBuilder(),
-      home:FirebaseStoredatas(),
+      home:StudentDetails(),
       // StreamBuilder(
       //   stream: FirebaseAuth.instance.authStateChanges(),
       //   builder: (context,snapshot){

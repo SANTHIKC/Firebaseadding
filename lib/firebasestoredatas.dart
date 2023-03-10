@@ -28,6 +28,11 @@ class _FirebaseStoredatasState extends State<FirebaseStoredatas> {
     });
   }
 
+  void initState() {
+    // TODO: implement initState
+   super.initState();
+    //readin();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,27 +66,32 @@ class _FirebaseStoredatasState extends State<FirebaseStoredatas> {
                   readin();
                 },
                 child: Text("add")),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: datas!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ListTile(
-                        title: Text(datas![index].data()["name"]),
-                        subtitle: Text(datas![index].data()["email"]),
-                        leading: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(image: NetworkImage(datas![index].data()["url"])),
-                              border: Border.all(color: Colors.black),
-                              ),
-                        ),
-                      ),
-                    );
-                  }),
+            StreamBuilder(
+              stream:FirebaseFirestore.instance.collection("Details").snapshots() ,
+              builder: (context,snapshot) {
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ListTile(
+                            title: Text(snapshot.data!.docs[index].data()["name"]),
+                            subtitle: Text(snapshot.data!.docs[index].data()["email"]),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(image: NetworkImage(snapshot.data!.docs[index].data()["url"])),
+                                  border: Border.all(color: Colors.black),
+                                  ),
+                            ),
+                          ),
+                        );
+                      }),
+                );
+              }
             )
           ],
         ),
