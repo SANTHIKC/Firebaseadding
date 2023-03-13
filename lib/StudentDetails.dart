@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_login/studentdetails1.dart';
 import 'package:flutter/material.dart';
 
 class StudentDetails extends StatefulWidget {
@@ -8,6 +10,29 @@ class StudentDetails extends StatefulWidget {
 }
 
 class _StudentDetailsState extends State<StudentDetails> {
+  adding() async {
+
+
+      await  FirebaseFirestore.instance
+          .collection("NSS Student").doc("subject").collection("marks")
+          .add({"name": nametextcontroller.text,
+        "physics":physicstextcontroller.text,
+        "chemistry":chemistrytextcontroller.text,
+        "biology":biologytextcontroller.text,
+        "english":englishtextcontroller.text,
+        "malayalam":malayalamtextcontroller.text,
+        });
+
+  }
+  List? details = [];
+  readf() async {
+    var fulldata = await FirebaseFirestore.instance.collection("NSS Student").get();
+    details = fulldata.docs;
+    print(details);
+  }
+
+
+
   TextEditingController nametextcontroller=TextEditingController();
   TextEditingController classtextcontroller=TextEditingController();
   TextEditingController phonetextcontroller=TextEditingController();
@@ -59,7 +84,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                   validator: (r) {
                     if(r!.isEmpty)
                     {
-                      return "enter age";
+                      return "enter class";
                     }
                   },
 
@@ -161,6 +186,8 @@ class _StudentDetailsState extends State<StudentDetails> {
                 ),
               ),
               ElevatedButton(onPressed: (){
+                adding();
+                readf();
 
                 bool validaters = formkey.currentState!.validate();
                 if(validaters==false)
@@ -169,9 +196,17 @@ class _StudentDetailsState extends State<StudentDetails> {
                   }
                 else
                   {
-                    
+                    showDialog(context: context, builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("messege"),
+                        content: Text("datas are success fully completed"),
+                      );
+
+                    },);
                   }
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>StudentDetails1() ,));
               }, child: Text("add")),
+
             ],
           ),
         ),
