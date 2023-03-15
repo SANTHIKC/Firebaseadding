@@ -12,23 +12,30 @@ class StudentDetails extends StatefulWidget {
 class _StudentDetailsState extends State<StudentDetails> {
   adding() async {
 
-
+   var documentid=
       await  FirebaseFirestore.instance
-          .collection("NSS Student").doc("subject").collection("marks")
+          .collection("Students")
           .add({"name": nametextcontroller.text,
-        "physics":physicstextcontroller.text,
-        "chemistry":chemistrytextcontroller.text,
-        "biology":biologytextcontroller.text,
-        "english":englishtextcontroller.text,
-        "malayalam":malayalamtextcontroller.text,
+                "class": classtextcontroller.text,
+                 "phone":phonetextcontroller.text,
+                 "url":urlstextcontroller.text,
         });
-
+   print("..${documentid.id}");
+   FirebaseFirestore.instance.collection("Students").doc(documentid.id).collection("marks").add({
+     "Chemistry":chemistrytextcontroller.text,
+     "biology":biologytextcontroller.text,
+     "english":englishtextcontroller.text,
+     "malayalam":malayalamtextcontroller.text,
+   });
   }
+
+
+
+
   List? details = [];
   readf() async {
     var fulldata = await FirebaseFirestore.instance.collection("NSS Student").get();
-    details = fulldata.docs;
-    print(details);
+
   }
 
 
@@ -36,8 +43,8 @@ class _StudentDetailsState extends State<StudentDetails> {
   TextEditingController nametextcontroller=TextEditingController();
   TextEditingController classtextcontroller=TextEditingController();
   TextEditingController phonetextcontroller=TextEditingController();
-  TextEditingController subjectstextcontroller=TextEditingController();
-  TextEditingController physicstextcontroller=TextEditingController();
+  TextEditingController urlstextcontroller=TextEditingController();
+  TextEditingController subjecttextcontroller=TextEditingController();
   TextEditingController chemistrytextcontroller=TextEditingController();
   TextEditingController biologytextcontroller=TextEditingController();
   TextEditingController englishtextcontroller=TextEditingController();
@@ -49,7 +56,17 @@ class _StudentDetailsState extends State<StudentDetails> {
       // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Nss Students",),
-        actions: [Center(child: Text("show details"))],
+        actions: [InkWell(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder:(context) {
+              return StudentDetails1();
+            },));
+          },
+            child: Container(
+              height: 30,
+                width: 100,
+                color: Colors.green,
+                child: Center(child: Text("show details"))))],
         backgroundColor: Colors.green,
       ),
       body: SingleChildScrollView (
@@ -107,26 +124,27 @@ class _StudentDetailsState extends State<StudentDetails> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
-                  decoration:InputDecoration(hintText: "Subject",label: Text("Enter subject"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))) ,
-                  controller: subjectstextcontroller,
+                  decoration:InputDecoration(hintText: "url",label: Text("Enter url"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))) ,
+                  controller: urlstextcontroller,
                   validator: (t) {
                     if(t!.isEmpty)
                     {
-                      return "enter subject";
+                      return "enter url";
                     }
                   },
 
                 ),
               ),
+              Text("Subject details"),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
-                  decoration:InputDecoration(hintText: "Physics",label: Text("Marks of Physics"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))) ,
-                  controller: physicstextcontroller,
+                  decoration:InputDecoration(hintText: "physics",label: Text("Marks of physics"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))) ,
+                  controller: subjecttextcontroller,
                   validator: (u) {
                     if(u!.isEmpty)
                     {
-                      return "enter marks";
+                      return "enter mark";
                     }
                   },
 
@@ -204,7 +222,6 @@ class _StudentDetailsState extends State<StudentDetails> {
 
                     },);
                   }
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>StudentDetails1() ,));
               }, child: Text("add")),
 
             ],
