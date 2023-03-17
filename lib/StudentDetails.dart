@@ -22,6 +22,7 @@ class _StudentDetailsState extends State<StudentDetails> {
         });
    print("..${documentid.id}");
    FirebaseFirestore.instance.collection("Students").doc(documentid.id).collection("marks").add({
+     "physics" :physicstextcontroller.text,
      "Chemistry":chemistrytextcontroller.text,
      "biology":biologytextcontroller.text,
      "english":englishtextcontroller.text,
@@ -44,7 +45,7 @@ class _StudentDetailsState extends State<StudentDetails> {
   TextEditingController classtextcontroller=TextEditingController();
   TextEditingController phonetextcontroller=TextEditingController();
   TextEditingController urlstextcontroller=TextEditingController();
-  TextEditingController subjecttextcontroller=TextEditingController();
+  TextEditingController physicstextcontroller=TextEditingController();
   TextEditingController chemistrytextcontroller=TextEditingController();
   TextEditingController biologytextcontroller=TextEditingController();
   TextEditingController englishtextcontroller=TextEditingController();
@@ -140,7 +141,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   decoration:InputDecoration(hintText: "physics",label: Text("Marks of physics"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))) ,
-                  controller: subjecttextcontroller,
+                  controller: physicstextcontroller,
                   validator: (u) {
                     if(u!.isEmpty)
                     {
@@ -214,6 +215,8 @@ class _StudentDetailsState extends State<StudentDetails> {
                   }
                 else
                   {
+                    adding();
+
                     showDialog(context: context, builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text("messege"),
